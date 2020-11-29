@@ -1,0 +1,22 @@
+service: gtransx
+provider:
+  name: aws
+  runtime: nodejs12.x
+
+plugins:
+  - serverless-offline
+  - serverless-plugin-chrome
+
+package:
+  exclude:
+    - node_modules/puppeteer/.local-chromium/**
+functions:
+  translate:
+    handler: gtransx.translate
+    memorySize: 1536MB
+    timeout: 30
+    events:
+      - http:
+          path: /translate
+          method: post
+          cors: true

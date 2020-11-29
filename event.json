@@ -1,0 +1,11 @@
+{
+  "body": {
+    "src": "en",
+    "tgt": "es",
+    "service": 1,
+    "texts": [
+      "Hola",
+      "Buenos días"
+    ]
+  }
+}
