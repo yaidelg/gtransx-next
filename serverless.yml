@@ -8,6 +8,7 @@ plugins:
   - serverless-plugin-chrome
 
 package:
+  individually: true
   exclude:
     - node_modules/puppeteer/.local-chromium/**
 functions:
@@ -20,3 +21,6 @@ functions:
           path: /translate
           method: post
           cors: true
+plugins:
+  - serverless-webpack
+  
