@@ -13,7 +13,7 @@ package:
 functions:
   translate:
     handler: gtransx.translate
-    memorySize: 1536MB
+    memorySize: 1536
     timeout: 30
     events:
       - http:
