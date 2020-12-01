@@ -6,6 +6,7 @@ provider:
 plugins:
   - serverless-offline
   - serverless-plugin-chrome
+  - serverless-webpack
 
 package:
   individually: true
@@ -21,6 +22,3 @@ functions:
           path: /translate
           method: post
           cors: true
-plugins:
-  - serverless-webpack
-  
