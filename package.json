@@ -13,16 +13,16 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@serverless-chrome/lambda": "^1.0.0-55",
+    "@serverless-chrome/lambda": "1.0.0-55",
     "encodeurl": "1.0.2",
-    "puppeteer": "^5.5.0",
-    "superagent": "^5.2.1"
+    "puppeteer": "5.5.0",
+    "superagent": "5.2.1"
   },
   "devDependencies": {
-    "chrome-launcher": "^0.12.0",
-    "serverless-offline": "^5.12.1",
-    "serverless-plugin-chrome": "^1.0.0-55.3",
-    "serverless-webpack": "^5.3.5",
-    "webpack": "^5.9.0"
+    "chrome-launcher": "0.12.0",
+    "serverless-offline": "5.12.1",
+    "serverless-plugin-chrome": "1.0.0-55.3",
+    "serverless-webpack": "5.3.5",
+    "webpack": "5.9.0"
   }
 }

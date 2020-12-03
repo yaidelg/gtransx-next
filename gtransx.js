@@ -6,8 +6,12 @@ const SERVICES = require("./services");
 
 const process = async (browser, src, tgt, service, texts) => {
   const { URL, SELECTOR } = SERVICES[service];
+  console.log("SELECTOR", SELECTOR);
   const urlTo = encodeUrl(URL(src, tgt, ""));
-  await browser.defaultBrowserContext().overridePermissions(urlTo, ["clipboard-read", "clipboard-write"]);
+  await browser
+    .defaultBrowserContext()
+    .overridePermissions(urlTo, ["clipboard-write", "clipboard-read"]);
+
   return new Promise(async (resolve, reject) => {
     try {
       const results = [];
@@ -15,12 +19,17 @@ const process = async (browser, src, tgt, service, texts) => {
         texts.map(async (text) => {
           const page = await browser.newPage();
           await page.goto(urlTo + text);
-          await page.waitForSelector(SELECTOR);
-          await page.click(SELECTOR);
-          const textBack = await page.evaluate(() => {
-            return navigator.clipboard.readText();
-          });
-          results.push({ src: text, tgt: textBack });
+
+          let value = null;
+
+          while (value === null) {
+            await page.waitForSelector(".lmt__translations_as_text__text_btn");
+            let element = await page.$(".lmt__translations_as_text__text_btn");
+            value = await page.evaluate((el) => el.textContent, element);
+          }
+
+          console.log(value);
+          results.push({ src: text, tgt: value });
           page.close();
         })
       );
@@ -32,14 +41,21 @@ const process = async (browser, src, tgt, service, texts) => {
 };
 
 module.exports.translate = async (event) => {
-  console.log(JSON.parse(event.body));
+  // console.log(JSON.parse(event.body));
   const chrome = await getChrome();
   const browser = await puppeteer.connect({
     browserWSEndpoint: chrome.endpoint,
   });
 
   const { src, tgt, service, texts } = JSON.parse(event.body);
+
+  // const src = "es";
+  // const tgt = "en";
+  // const service = 2;
+  // const texts = ["Hola", "Mundo"];
+
   let results = await process(browser, src, tgt, service, texts);
+  console.log(results);
   return {
     statusCode: 200,
     headers: { "Content-Type": "text/plain" },

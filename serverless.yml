@@ -6,10 +6,10 @@ provider:
 plugins:
   - serverless-offline
   - serverless-plugin-chrome
-  - serverless-webpack
+  # - serverless-webpack
 
 package:
-  individually: true
+  # individually: true
   exclude:
     - node_modules/puppeteer/.local-chromium/**
 functions:
