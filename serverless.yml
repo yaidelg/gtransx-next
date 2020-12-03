@@ -9,7 +9,7 @@ plugins:
   # - serverless-webpack
 
 package:
-  # individually: true
+  ndividually: true
   exclude:
     - node_modules/puppeteer/.local-chromium/**
 functions:
