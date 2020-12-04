@@ -29,48 +29,16 @@ const process = async (browser, src, tgt, service, texts) => {
     page.close();
   }
   return results;
-
-  // return new Promise(async (resolve, reject) => {
-  //   try {
-  //     const results = [];
-  //     await Promise.all(
-  //       texts.map(async (text) => {
-  //         const page = await browser.newPage();
-  //         await page.goto(urlTo + text);
-
-  //         let value = null;
-
-  //         while (value === null) {
-  //           await page.waitForSelector(".lmt__translations_as_text__text_btn");
-  //           let element = await page.$(".lmt__translations_as_text__text_btn");
-  //           value = await page.evaluate((el) => el.textContent, element);
-  //         }
-
-  //         console.log(value);
-  //         results.push({ src: text, tgt: value });
-  //         page.close();
-  //       })
-  //     );
-  //     resolve(results);
-  //   } catch (error) {
-  //     reject(error);
-  //   }
-  // });
 };
 
 module.exports.translate = async (event) => {
-  // console.log(JSON.parse(event.body));
+  console.log(JSON.parse(event.body));
   const chrome = await getChrome();
   const browser = await puppeteer.connect({
     browserWSEndpoint: chrome.endpoint,
   });
 
-  // const { src, tgt, service, texts } = JSON.parse(event.body);
-
-  const src = "es";
-  const tgt = "en";
-  const service = 2;
-  const texts = ["Hola", "Mundo"];
+  const { src, tgt, service, texts } = JSON.parse(event.body);
 
   let results = await process(browser, src, tgt, service, texts);
   console.log(results);
